@@ -15,5 +15,6 @@ import org.una.tienda.facturacion.dto.ProductoDTO;
 public interface IProductoService {
     public Optional<ProductoDTO> findById(Long id);
     public ProductoDTO create(ProductoDTO ProductoDTO);
+    // public ProductoDTO update(ProductoDTO ProductoDTO, Long id);
     public void delete(Long id);
 }

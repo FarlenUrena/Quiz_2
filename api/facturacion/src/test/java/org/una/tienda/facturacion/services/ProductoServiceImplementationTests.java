@@ -32,7 +32,7 @@ public class ProductoServiceImplementationTests  {
     public void setup() {
         productoEjemplo = new ProductoDTO() {
             {
-                setDescripcion("Producto De Ejemplo");
+                setDescripcion("Producto de ejemplo.");
                 setImpuesto(0.10);
             }
         };
@@ -50,9 +50,47 @@ public class ProductoServiceImplementationTests  {
             assertEquals(productoEjemplo.getId(), producto.getId());
 
         } else {
-            fail("No se encontro la información en la BD");
+            fail("No se encontró la información en la BD");
         }
     }
+    
+    @Test
+    public void sePuedeModificarUnProductoCorrectamente() {
+ 
+        String modificar = "Se modificó el producto";
+        productoEjemplo = productoService.create(productoEjemplo);
+
+        Optional<ProductoDTO> productoEncontrado = productoService.findById(productoEjemplo.getId());
+        if(productoEncontrado.isPresent()&& productoEncontrado.get().getDescripcion() != productoEjemplo.getDescripcion()) {
+            productoEjemplo.setDescripcion(modificar);
+            ProductoDTO producto = productoEncontrado.get();
+
+            System.out.println(productoEncontrado.get().getDescripcion());
+            System.out.println(productoEjemplo.getDescripcion());
+
+            assertEquals(productoEjemplo.getId(), producto.getId());
+        } else {
+            fail("No se encontró la información en la BD");
+        }
+    }
+    
+    /*
+    @Test
+    public void sePuedeEliminarUnProductoCorrectamente() {
+ 
+        productoEjemplo = productoService.delete(productoEjemplo.getId());
+
+        Optional<ProductoDTO> productoEncontrado = productoService.findById(productoEjemplo.getId());
+
+        if (productoEncontrado.isPresent()) {
+            ProductoDTO producto = productoEncontrado.get();
+            assertEquals(productoEjemplo.getId(), producto.getId());
+
+        } else {
+            fail("No se encontró la información en la BD");
+        }
+    }
+    */
 
     @AfterEach
     public void tearDown() {
@@ -60,10 +98,5 @@ public class ProductoServiceImplementationTests  {
             productoService.delete(productoEjemplo.getId());
             productoEjemplo = null;
         }
-
     }
-    
-    
-    
-
 }
