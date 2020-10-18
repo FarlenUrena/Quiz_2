@@ -5,19 +5,17 @@
  */
 package org.una.tienda.facturacion.services;
 
-import java.util.List;
+
 import java.util.Optional;
-import org.una.tienda.facturacion.entities.ProductoPrecio;
+import org.una.tienda.facturacion.dto.ProductoPrecioDTO;
+
 
 /**
  *
  * @author thony
  */
 public interface IProductoPrecioService {
-    public ProductoPrecio create(ProductoPrecio productoPrecio);
-    public Optional<ProductoPrecio> update(ProductoPrecio productoPrecio, Long id);
+    public Optional<ProductoPrecioDTO> findById(Long id);
+    public ProductoPrecioDTO create(ProductoPrecioDTO ProductoDTO);
     public void delete(Long id);
-    public void deleteAll();
-    public Optional<ProductoPrecio> findById(Long id);
-    public Optional<List<ProductoPrecio>> findAll();
 }

@@ -5,19 +5,17 @@
  */
 package org.una.tienda.facturacion.services;
 
-import java.util.List;
+
 import java.util.Optional;
-import org.una.tienda.facturacion.entities.FacturaDetalle;
+import org.una.tienda.facturacion.dto.FacturaDetalleDTO;
+
 
 /**
  *
  * @author thony
  */
 public interface IFacturaDetalleService {
-    public FacturaDetalle create(FacturaDetalle facturaDetalle);
-    public Optional<FacturaDetalle> update(FacturaDetalle facturaDetalle, Long id);
+public Optional<FacturaDetalleDTO> findById(Long id);
+    public FacturaDetalleDTO create(FacturaDetalleDTO FacturaDetalleDTO);
     public void delete(Long id);
-    public void deleteAll();
-    public Optional<FacturaDetalle> findById(Long id);
-    public Optional<List<FacturaDetalle>> findAll();
 }

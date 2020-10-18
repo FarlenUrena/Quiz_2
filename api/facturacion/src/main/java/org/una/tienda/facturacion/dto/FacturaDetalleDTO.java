@@ -28,4 +28,8 @@ public class FacturaDetalleDTO {
     private boolean estado; 
     private Date fechaModificacion;
     private Date fechaRegistro;  
+
+    public boolean getDescripcion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

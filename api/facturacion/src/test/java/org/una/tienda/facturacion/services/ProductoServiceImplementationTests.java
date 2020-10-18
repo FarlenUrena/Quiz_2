@@ -6,7 +6,6 @@
 package org.una.tienda.facturacion.services;
 
 import java.util.Optional;
-import javax.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -99,4 +98,5 @@ public class ProductoServiceImplementationTests  {
             productoEjemplo = null;
         }
     }
+    
 }

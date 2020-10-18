@@ -26,7 +26,7 @@ public class ProductoServiceImplementation implements IProductoService {
     @Autowired
     private IProductoRepository productoRepository;
 
-        private Optional<ProductoDTO> oneToDto(Optional<Producto> one) {
+    private Optional<ProductoDTO> oneToDto(Optional<Producto> one) {
         if (one.isPresent()) {
             ProductoDTO ProductoDTO = MapperUtils.DtoFromEntity(one.get(),   ProductoDTO.class);
             return Optional.ofNullable(ProductoDTO);
@@ -34,6 +34,7 @@ public class ProductoServiceImplementation implements IProductoService {
             return null;
         }
     }
+    
     @Override
     @Transactional(readOnly = true)
     public Optional<ProductoDTO> findById(Long id) {
