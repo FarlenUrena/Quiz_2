@@ -84,7 +84,7 @@ public class ProductoPrecioServiceImplementationTests {
         if (productoPrecioEncontrado.isPresent()) {
             ProductoPrecioDTO productoPrecio = productoPrecioEncontrado.get();
             
-//          productoPrecioService.delete(productoPrecioEjemplo.getId());
+
             productoPrecioService.delete2(productoPrecioEncontrado.get().getId());
              
             assertEquals(productoPrecioEjemplo.getId(), productoPrecio.getId());

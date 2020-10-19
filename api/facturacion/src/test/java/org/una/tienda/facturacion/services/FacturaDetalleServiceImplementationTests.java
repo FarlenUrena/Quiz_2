@@ -192,14 +192,7 @@ public class FacturaDetalleServiceImplementationTests {
         }
     }
     
-    /*
-    @Test
-    public void seEvitaFacturarUnProductoConDescuentoMayorAlPermitido() throws ProductoConDescuentoMayorAlPermitidoException {
-        initDataForSeEvitaFacturarUnProductoConDescuentoMayorAlPermitido();
-        
-        facturaDetalleService.create(facturaDetallePruebaConExtraDescuento);
-    }
-    */
+   
     
     @AfterEach
     public void tearDown() {
