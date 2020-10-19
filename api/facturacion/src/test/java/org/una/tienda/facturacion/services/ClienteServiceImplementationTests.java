@@ -87,6 +87,7 @@ public class ClienteServiceImplementationTests {
         if (clienteEncontrado.isPresent()) {
             ClienteDTO cliente = clienteEncontrado.get();
             
+//          clienteService.delete(clienteEjemplo.getId());
             clienteService.delete2(clienteEncontrado.get().getId());
              
             assertEquals(clienteEjemplo.getId(), cliente.getId());
