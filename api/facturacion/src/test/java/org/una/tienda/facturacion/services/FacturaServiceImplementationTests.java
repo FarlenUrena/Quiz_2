@@ -86,7 +86,7 @@ public class FacturaServiceImplementationTests {
         if (facturaEncontrado.isPresent()) {
             FacturaDTO factura = facturaEncontrado.get();
             
-//          facturaService.delete(facturaEjemplo.getId());
+
             facturaService.delete2(facturaEncontrado.get().getId());
              
             assertEquals(facturaEjemplo.getId(), factura.getId());

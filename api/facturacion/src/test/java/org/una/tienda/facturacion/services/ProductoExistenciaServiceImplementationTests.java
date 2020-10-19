@@ -84,7 +84,7 @@ public class ProductoExistenciaServiceImplementationTests {
         if (productoExistenciaEncontrado.isPresent()) {
             ProductoExistenciaDTO productoExistencia = productoExistenciaEncontrado.get();
             
-//          productoExistenciaService.delete(productoExistenciaEjemplo.getId());
+
             productoExistenciaService.delete2(productoExistenciaEncontrado.get().getId());
              
             assertEquals(productoExistenciaEjemplo.getId(), productoExistencia.getId());

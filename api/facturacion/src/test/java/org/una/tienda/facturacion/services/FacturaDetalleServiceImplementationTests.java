@@ -183,7 +183,6 @@ public class FacturaDetalleServiceImplementationTests {
         if (facturaDetalleEncontrado.isPresent()) {
             FacturaDetalleDTO facturaDetalle = facturaDetalleEncontrado.get();
             
-            // facturaDetalleService.delete(facturaDetalleEjemplo.getId());
             facturaDetalleService.delete2(facturaDetalleEncontrado.get().getId());
              
             assertEquals(facturaDetalleEjemplo.getId(), facturaDetalle.getId());
@@ -192,14 +191,7 @@ public class FacturaDetalleServiceImplementationTests {
         }
     }
     
-    /*
-    @Test
-    public void seEvitaFacturarUnProductoConDescuentoMayorAlPermitido() throws ProductoConDescuentoMayorAlPermitidoException {
-        initDataForSeEvitaFacturarUnProductoConDescuentoMayorAlPermitido();
-        
-        facturaDetalleService.create(facturaDetallePruebaConExtraDescuento);
-    }
-    */
+    
     
     @AfterEach
     public void tearDown() {

@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.internal.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.una.tienda.facturacion.dto.ProductoDTO;
@@ -88,7 +87,6 @@ public class ProductoServiceImplementationTests  {
         if (productoEncontrado.isPresent()) {
             ProductoDTO producto = productoEncontrado.get();
             
-//            productoService.delete(productoEjemplo.getId());
             productoService.delete2(productoEncontrado.get().getId());
              
             assertEquals(productoEjemplo.getId(), producto.getId());
