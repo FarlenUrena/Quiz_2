@@ -29,4 +29,5 @@ public class ProductoPrecioDTO {
     private Date fechaModificacion;
     private Date fechaRegistro;  
     private double precioColones;
+    private ProductoDTO producto;
 }

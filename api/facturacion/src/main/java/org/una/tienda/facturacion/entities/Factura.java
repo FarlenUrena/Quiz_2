@@ -5,12 +5,18 @@
  */
 package org.una.tienda.facturacion.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -54,12 +60,19 @@ public class Factura {
     @Column(name = "fecha_registro", updatable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
+    
+    @ManyToOne 
+    @JoinColumn(name = "clientes_id")
+    private Cliente cliente;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "factura") 
+    private List<FacturaDetalle> facturasDetalles = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
     
     @PrePersist
     public void prePersist() {
-        estado=true;
+        estado = true;
         fechaRegistro = new Date();
         fechaModificacion = new Date();
     }

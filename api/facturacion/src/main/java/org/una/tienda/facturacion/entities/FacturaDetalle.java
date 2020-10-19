@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -54,12 +56,20 @@ public class FacturaDetalle {
     @Column(name = "fecha_registro", updatable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
-
+    
+    @ManyToOne 
+    @JoinColumn(name = "facturas_id")
+    private Factura factura;
+    
+    @ManyToOne 
+    @JoinColumn(name = "productos_id")
+    private Producto producto;
+    
     private static final long serialVersionUID = 1L;
     
     @PrePersist
     public void prePersist() {
-        estado=true;
+        estado = true;
         fechaRegistro = new Date();
         fechaModificacion = new Date();
     }

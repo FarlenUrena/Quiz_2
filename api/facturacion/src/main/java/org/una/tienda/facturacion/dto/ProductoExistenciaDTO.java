@@ -26,5 +26,6 @@ public class ProductoExistenciaDTO {
     private double cantidad;
     private boolean estado; 
     private Date fechaModificacion;
-    private Date fechaRegistro;  
+    private Date fechaRegistro;
+    private ProductoDTO producto;
 }

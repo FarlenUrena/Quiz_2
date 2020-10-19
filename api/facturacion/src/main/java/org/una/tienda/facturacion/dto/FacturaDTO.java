@@ -27,5 +27,6 @@ public class FacturaDTO {
     private double descuentoGeneral;
     private boolean estado; 
     private Date fechaModificacion; 
-    private Date fechaRegistro; 
+    private Date fechaRegistro;
+    private ClienteDTO cliente;
 }
