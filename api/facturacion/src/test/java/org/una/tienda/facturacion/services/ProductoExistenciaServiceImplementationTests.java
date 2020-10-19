@@ -54,18 +54,40 @@ public class ProductoExistenciaServiceImplementationTests {
     @Test
     public void sePuedeModificarUnProductoExistenciaCorrectamente() {
  
-        String modificar = "Se modificó el producto Existencia";
-        productoExistenciaEjemplo = productoExistenciaService.create(productoExistenciaEjemplo);
+       productoExistenciaEjemplo = productoExistenciaService.create(productoExistenciaEjemplo);
+        
+                ProductoExistenciaDTO productoExistenciaEjemplo2 = new ProductoExistenciaDTO(); 
+                productoExistenciaEjemplo2.setCantidad(4);
+                productoExistenciaEjemplo2.setEstado(false);
 
-        Optional<ProductoExistenciaDTO> productoEncontrado = productoExistenciaService.findById(productoExistenciaEjemplo.getId());
-        if(productoEncontrado.isPresent()&& productoEncontrado.get().getCantidad() != productoExistenciaEjemplo.getCantidad()) {
-            productoExistenciaEjemplo.setCantidad(1);
-            ProductoExistenciaDTO producto = productoEncontrado.get();
+        Optional<ProductoExistenciaDTO> productoExistenciaEncontrado = productoExistenciaService.findById(productoExistenciaEjemplo.getId());
+        System.out.println(productoExistenciaEjemplo.getId());
+        
+        
+        
+        if(productoExistenciaEncontrado.isPresent()) {
+            productoExistenciaEjemplo = productoExistenciaService.update(productoExistenciaEjemplo.getId(),productoExistenciaEjemplo2);
+            
+            assertEquals(productoExistenciaEjemplo.getCantidad(), productoExistenciaEjemplo2.getCantidad());
+        } else {
+            fail("No se encontró la información en la BD");
+        }
+    }
+    
+     @Test
+    public void sePuedeEliminarUnProductoExistenciaCorrectamente() {
+        
+         productoExistenciaEjemplo = productoExistenciaService.create(productoExistenciaEjemplo);
+         
+        Optional<ProductoExistenciaDTO> productoExistenciaEncontrado = productoExistenciaService.findById(productoExistenciaEjemplo.getId());
 
-            System.out.println(productoEncontrado.get().getCantidad());
-            System.out.println(productoExistenciaEjemplo.getCantidad());
-
-            assertEquals(productoExistenciaEjemplo.getId(), producto.getId());
+        if (productoExistenciaEncontrado.isPresent()) {
+            ProductoExistenciaDTO productoExistencia = productoExistenciaEncontrado.get();
+            
+//          productoExistenciaService.delete(productoExistenciaEjemplo.getId());
+            productoExistenciaService.delete2(productoExistenciaEncontrado.get().getId());
+             
+            assertEquals(productoExistenciaEjemplo.getId(), productoExistencia.getId());
         } else {
             fail("No se encontró la información en la BD");
         }

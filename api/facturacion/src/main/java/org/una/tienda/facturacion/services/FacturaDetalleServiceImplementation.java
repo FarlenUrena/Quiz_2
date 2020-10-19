@@ -52,5 +52,25 @@ public class FacturaDetalleServiceImplementation implements IFacturaDetalleServi
     public void delete(Long id) {
         facturaDetalleRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public FacturaDetalleDTO update(Long id, FacturaDetalleDTO facturaDetalleDTO) {
+    if(facturaDetalleRepository.findById(id).isPresent()){
+        FacturaDetalle facturaDetalle;
+        FacturaDetalle facturaDetalleActualizado = MapperUtils.EntityFromDto(facturaDetalleDTO, FacturaDetalle.class);
+        facturaDetalle = facturaDetalleActualizado;
+        facturaDetalle = facturaDetalleRepository.save(facturaDetalle);
+        return MapperUtils.DtoFromEntity(facturaDetalle, FacturaDetalleDTO.class);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete2(Long id) {
+    oneToDto(facturaDetalleRepository.findById(id));
+    }
     
 }

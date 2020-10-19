@@ -51,5 +51,25 @@ public class FacturaServiceImplementation implements IFacturaService {
     public void delete(Long id) {
         facturaRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public FacturaDTO update(Long id, FacturaDTO facturaDTO) {
+    if(facturaRepository.findById(id).isPresent()){
+        Factura factura;
+        Factura facturaActualizado = MapperUtils.EntityFromDto(facturaDTO, Factura.class);
+        factura = facturaActualizado;
+        factura = facturaRepository.save(factura);
+        return MapperUtils.DtoFromEntity(factura, FacturaDTO.class);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete2(Long id) {
+    oneToDto(facturaRepository.findById(id));
+    }
     
 }

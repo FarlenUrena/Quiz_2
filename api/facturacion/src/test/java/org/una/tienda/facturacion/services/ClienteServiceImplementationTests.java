@@ -56,23 +56,45 @@ public class ClienteServiceImplementationTests {
     @Test
     public void sePuedeModificarUnClienteCorrectamente() {
  
-        String modificar = "Se modificó el cliente";
-        clienteEjemplo = clienteService.create(clienteEjemplo);
+       clienteEjemplo = clienteService.create(clienteEjemplo);
+        
+                ClienteDTO clienteEjemplo2 = new ClienteDTO(); 
+                clienteEjemplo2.setDireccion("Dirección Actualizada.");
+                clienteEjemplo2.setEmail("b@.com");
+                clienteEjemplo2.setEstado(false);
 
         Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
-        if(clienteEncontrado.isPresent()&& (clienteEncontrado.get().getDireccion() == null ? clienteEjemplo.getDireccion() != null : !clienteEncontrado.get().getDireccion().equals(clienteEjemplo.getDireccion()))) {
-            clienteEjemplo.setDireccion(modificar);
-            ClienteDTO cliente = clienteEncontrado.get();
-
-            System.out.println(clienteEncontrado.get().getDireccion());
-            System.out.println(clienteEjemplo.getDireccion());
-
-            assertEquals(clienteEjemplo.getId(), cliente.getId());
+        System.out.println(clienteEjemplo.getId());
+        
+        
+        
+        if(clienteEncontrado.isPresent()) {
+            clienteEjemplo = clienteService.update(clienteEjemplo.getId(),clienteEjemplo2);
+            
+            assertEquals(clienteEjemplo.getDireccion(), clienteEjemplo2.getDireccion());
         } else {
             fail("No se encontró la información en la BD");
         }
     }
     
+     @Test
+    public void sePuedeEliminarUnClienteCorrectamente() {
+        
+         clienteEjemplo = clienteService.create(clienteEjemplo);
+         
+        Optional<ClienteDTO> clienteEncontrado = clienteService.findById(clienteEjemplo.getId());
+
+        if (clienteEncontrado.isPresent()) {
+            ClienteDTO cliente = clienteEncontrado.get();
+            
+//          clienteService.delete(clienteEjemplo.getId());
+            clienteService.delete2(clienteEncontrado.get().getId());
+             
+            assertEquals(clienteEjemplo.getId(), cliente.getId());
+        } else {
+            fail("No se encontró la información en la BD");
+        }
+    }
     
     @AfterEach
     public void tearDown() {

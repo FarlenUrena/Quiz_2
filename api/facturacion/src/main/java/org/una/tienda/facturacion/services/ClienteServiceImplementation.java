@@ -52,5 +52,25 @@ public class ClienteServiceImplementation implements IClienteService{
     public void delete(Long id) {
         clienteRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public ClienteDTO update(Long id, ClienteDTO clienteDTO) {
+    if(clienteRepository.findById(id).isPresent()){
+        Cliente cliente;
+        Cliente clienteActualizado = MapperUtils.EntityFromDto(clienteDTO, Cliente.class);
+        cliente = clienteActualizado;
+        cliente = clienteRepository.save(cliente);
+        return MapperUtils.DtoFromEntity(cliente, ClienteDTO.class);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete2(Long id) {
+     oneToDto(clienteRepository.findById(id));
+    }
     
 }

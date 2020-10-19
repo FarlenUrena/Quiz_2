@@ -20,7 +20,7 @@ import org.una.tienda.facturacion.dto.FacturaDTO;
  * @author erikg
  */
 @SpringBootTest
-public class FacturaServiceImplementationService {
+public class FacturaServiceImplementationTests {
     @Autowired
     private IFacturaService facturaService;
 
@@ -55,22 +55,46 @@ public class FacturaServiceImplementationService {
     @Test
     public void sePuedeModificarUnFacturaCorrectamente() {
  
-        String modificar = "Se modificó la factura";
         facturaEjemplo = facturaService.create(facturaEjemplo);
+        
+                FacturaDTO facturaEjemplo2 = new FacturaDTO(); 
+                facturaEjemplo2.setCaja(3);
+                facturaEjemplo2.setDescuentoGeneral(0.15);
+                facturaEjemplo2.setEstado(false);
 
         Optional<FacturaDTO> facturaEncontrado = facturaService.findById(facturaEjemplo.getId());
-        if(facturaEncontrado.isPresent()&& facturaEncontrado.get().getCaja() != facturaEjemplo.getCaja()) {
-            facturaEjemplo.setCaja(1);
+        System.out.println(facturaEjemplo.getId());
+        
+        
+        
+        if(facturaEncontrado.isPresent()) {
+            facturaEjemplo = facturaService.update(facturaEjemplo.getId(),facturaEjemplo2);
+            
+            assertEquals(facturaEjemplo.getCaja(), facturaEjemplo2.getCaja());
+        } else {
+            fail("No se encontró la información en la BD");
+        }
+    }
+    
+    @Test
+    public void sePuedeEliminarUnFacturaCorrectamente() {
+        
+         facturaEjemplo = facturaService.create(facturaEjemplo);
+         
+        Optional<FacturaDTO> facturaEncontrado = facturaService.findById(facturaEjemplo.getId());
+
+        if (facturaEncontrado.isPresent()) {
             FacturaDTO factura = facturaEncontrado.get();
-
-            System.out.println(facturaEncontrado.get().getCaja());
-            System.out.println(facturaEjemplo.getCaja());
-
+            
+//          facturaService.delete(facturaEjemplo.getId());
+            facturaService.delete2(facturaEncontrado.get().getId());
+             
             assertEquals(facturaEjemplo.getId(), factura.getId());
         } else {
             fail("No se encontró la información en la BD");
         }
     }
+    
     @AfterEach
     public void tearDown() {
         if (facturaEjemplo != null) {

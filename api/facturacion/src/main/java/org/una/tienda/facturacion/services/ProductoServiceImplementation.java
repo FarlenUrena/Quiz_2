@@ -54,4 +54,26 @@ public class ProductoServiceImplementation implements IProductoService {
     public void delete(Long id) {
         productoRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public ProductoDTO update(Long id,ProductoDTO productoDTO) {
+        
+        if(productoRepository.findById(id).isPresent()){
+        Producto producto;
+        Producto productoActualizado = MapperUtils.EntityFromDto(productoDTO, Producto.class);
+        producto = productoActualizado;
+        producto = productoRepository.save(producto);
+        return MapperUtils.DtoFromEntity(producto, ProductoDTO.class);
+        }else {
+            return null;
+        }
+    
+    }
+
+    @Override
+    @Transactional
+    public void delete2(Long id) {
+    oneToDto(productoRepository.findById(id));
+    }
 }

@@ -21,7 +21,7 @@ import org.una.tienda.facturacion.utils.MapperUtils;
 @Service
 public class ProductoExistenciaServiceImplementation  implements IProductoExistenciaService{
     @Autowired
-    private IProductoExistenciaRepository productoRepository;
+    private IProductoExistenciaRepository productoExistenciaRepository;
 
     private Optional<ProductoExistenciaDTO> oneToDto(Optional<ProductoExistencia> one) {
         if (one.isPresent()) {
@@ -35,21 +35,41 @@ public class ProductoExistenciaServiceImplementation  implements IProductoExiste
    @Override
     @Transactional(readOnly = true)
     public Optional<ProductoExistenciaDTO> findById(Long id) {
-        return oneToDto(productoRepository.findById(id));
+        return oneToDto(productoExistenciaRepository.findById(id));
     }
 
     @Override
     @Transactional
     public ProductoExistenciaDTO create(ProductoExistenciaDTO ProductoDTO) {
         ProductoExistencia productoExistencia = MapperUtils.EntityFromDto(ProductoDTO, ProductoExistencia.class);
-        productoExistencia = productoRepository.save(productoExistencia);
+        productoExistencia = productoExistenciaRepository.save(productoExistencia);
         return MapperUtils.DtoFromEntity(productoExistencia, ProductoExistenciaDTO.class);
     }
     
    @Override
     @Transactional
     public void delete(Long id) {
-        productoRepository.deleteById(id);
+        productoExistenciaRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public ProductoExistenciaDTO update(Long id, ProductoExistenciaDTO productoExistenciaDTO) {
+    if(productoExistenciaRepository.findById(id).isPresent()){
+        ProductoExistencia productoExistencia;
+        ProductoExistencia productoExistenciaActualizado = MapperUtils.EntityFromDto(productoExistenciaDTO, ProductoExistencia.class);
+        productoExistencia = productoExistenciaActualizado;
+        productoExistencia = productoExistenciaRepository.save(productoExistencia);
+        return MapperUtils.DtoFromEntity(productoExistencia, ProductoExistenciaDTO.class);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete2(Long id) {
+     oneToDto(productoExistenciaRepository.findById(id));
     }
     
 }

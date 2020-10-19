@@ -30,7 +30,7 @@ public class FacturaDetalleServiceImplementationTests {
     public void setup() {
         facturaDetalleEjemplo = new FacturaDetalleDTO() {
             {
-                setCantidad(0.10);
+                setCantidad(2);
                 setDescuentoFinal(0.10);
                 setEstado(true);
                 
@@ -52,17 +52,40 @@ public class FacturaDetalleServiceImplementationTests {
     @Test
     public void sePuedeModificarUnFacturaDetalleCorrectamente() {
  
-        String modificar = "Se modificó la facturaDetalle";
-        facturaDetalleEjemplo = facturaDetalleService.create(facturaDetalleEjemplo);
+       facturaDetalleEjemplo = facturaDetalleService.create(facturaDetalleEjemplo);
+        
+                FacturaDetalleDTO facturaDetalleEjemplo2 = new FacturaDetalleDTO(); 
+                facturaDetalleEjemplo2.setCantidad(3);
+                facturaDetalleEjemplo2.setDescuentoFinal(0.20);
+                facturaDetalleEjemplo2.setEstado(false);
 
         Optional<FacturaDetalleDTO> facturaDetalleEncontrado = facturaDetalleService.findById(facturaDetalleEjemplo.getId());
-        if(facturaDetalleEncontrado.isPresent()&& facturaDetalleEncontrado.get().getCantidad() != facturaDetalleEjemplo.getCantidad()) {
-            facturaDetalleEjemplo.setCantidad(1);
+        System.out.println(facturaDetalleEjemplo.getId());
+        
+        
+        
+        if(facturaDetalleEncontrado.isPresent()) {
+            facturaDetalleEjemplo = facturaDetalleService.update(facturaDetalleEjemplo.getId(),facturaDetalleEjemplo2);
+            
+            assertEquals(facturaDetalleEjemplo.getCantidad(), facturaDetalleEjemplo2.getCantidad());
+        } else {
+            fail("No se encontró la información en la BD");
+        }
+    }
+    
+     @Test
+    public void sePuedeEliminarUnFacturaDetalleCorrectamente() {
+        
+         facturaDetalleEjemplo = facturaDetalleService.create(facturaDetalleEjemplo);
+         
+        Optional<FacturaDetalleDTO> facturaDetalleEncontrado = facturaDetalleService.findById(facturaDetalleEjemplo.getId());
+
+        if (facturaDetalleEncontrado.isPresent()) {
             FacturaDetalleDTO facturaDetalle = facturaDetalleEncontrado.get();
-
-            System.out.println(facturaDetalleEncontrado.get().getCantidad());
-            System.out.println(facturaDetalleEjemplo.getCantidad());
-
+            
+//          facturaDetalleService.delete(facturaDetalleEjemplo.getId());
+            facturaDetalleService.delete2(facturaDetalleEncontrado.get().getId());
+             
             assertEquals(facturaDetalleEjemplo.getId(), facturaDetalle.getId());
         } else {
             fail("No se encontró la información en la BD");

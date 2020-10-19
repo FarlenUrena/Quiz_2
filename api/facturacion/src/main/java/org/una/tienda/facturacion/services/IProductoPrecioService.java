@@ -18,4 +18,8 @@ public interface IProductoPrecioService {
     public Optional<ProductoPrecioDTO> findById(Long id);
     public ProductoPrecioDTO create(ProductoPrecioDTO ProductoDTO);
     public void delete(Long id);
+
+   public ProductoPrecioDTO update(Long id,ProductoPrecioDTO productoPrecioDTO);
+
+    public void delete2(Long id);
 }

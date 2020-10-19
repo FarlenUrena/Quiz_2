@@ -14,6 +14,10 @@ import org.una.tienda.facturacion.dto.ClienteDTO;
  */
 public interface IClienteService {
  public Optional<ClienteDTO> findById(Long id);
-    public ClienteDTO create(ClienteDTO ProductoDTO);
+    public ClienteDTO create(ClienteDTO ClienteDTO);
     public void delete(Long id);
+
+    public ClienteDTO update(Long id,ClienteDTO productoDTO);
+
+    public void delete2(Long id);
 }

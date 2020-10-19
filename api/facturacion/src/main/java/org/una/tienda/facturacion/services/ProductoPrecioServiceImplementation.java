@@ -21,7 +21,7 @@ import org.una.tienda.facturacion.utils.MapperUtils;
 @Service
 public class ProductoPrecioServiceImplementation implements IProductoPrecioService{
     @Autowired
-    private IProductoPrecioRepository productoRepository;
+    private IProductoPrecioRepository productoPrecioRepository;
 
     private Optional<ProductoPrecioDTO> oneToDto(Optional<ProductoPrecio> one) {
         if (one.isPresent()) {
@@ -35,20 +35,41 @@ public class ProductoPrecioServiceImplementation implements IProductoPrecioServi
    @Override
     @Transactional(readOnly = true)
     public Optional<ProductoPrecioDTO> findById(Long id) {
-        return oneToDto(productoRepository.findById(id));
+        return oneToDto(productoPrecioRepository.findById(id));
     }
 
     @Override
     @Transactional
     public ProductoPrecioDTO create(ProductoPrecioDTO ProductoDTO) {
         ProductoPrecio productoPrecio = MapperUtils.EntityFromDto(ProductoDTO, ProductoPrecio.class);
-        productoPrecio = productoRepository.save(productoPrecio);
+        productoPrecio = productoPrecioRepository.save(productoPrecio);
         return MapperUtils.DtoFromEntity(productoPrecio, ProductoPrecioDTO.class);
     }
     
    @Override
     @Transactional
     public void delete(Long id) {
-        productoRepository.deleteById(id);
+        productoPrecioRepository.deleteById(id);
     }
+    
+    @Override
+    @Transactional
+    public ProductoPrecioDTO update(Long id, ProductoPrecioDTO productoPrecioDTO) {
+    if(productoPrecioRepository.findById(id).isPresent()){
+        ProductoPrecio productoPrecio;
+        ProductoPrecio productoPrecioActualizado = MapperUtils.EntityFromDto(productoPrecioDTO, ProductoPrecio.class);
+        productoPrecio = productoPrecioActualizado;
+        productoPrecio = productoPrecioRepository.save(productoPrecio);
+        return MapperUtils.DtoFromEntity(productoPrecio, ProductoPrecioDTO.class);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete2(Long id) {
+    oneToDto(productoPrecioRepository.findById(id));
+    }
+    
 }

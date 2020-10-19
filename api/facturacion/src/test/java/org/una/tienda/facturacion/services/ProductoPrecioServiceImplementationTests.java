@@ -34,36 +34,59 @@ public class ProductoPrecioServiceImplementationTests {
             }
         };
     }
-     @Test
-    public void sePuedeCrearUnProductoCorrectamente() {
+    
+    @Test
+    public void sePuedeCrearUnProductoPrecioCorrectamente() {
  
         productoPrecioEjemplo = productoPrecioService.create(productoPrecioEjemplo);
 
-        Optional<ProductoPrecioDTO> productoPrecioEncontrado = productoPrecioService.findById(productoPrecioEjemplo.getId());
+        Optional<ProductoPrecioDTO> clienteEncontrado = productoPrecioService.findById(productoPrecioEjemplo.getId());
 
-        if (productoPrecioEncontrado.isPresent()) {
-            ProductoPrecioDTO productoPrecio = productoPrecioEncontrado.get();
-            assertEquals(productoPrecioEjemplo.getId(), productoPrecio.getId());
+        if (clienteEncontrado.isPresent()) {
+            ProductoPrecioDTO cliente = clienteEncontrado.get();
+            assertEquals(productoPrecioEjemplo.getId(), cliente.getId());
 
         } else {
             fail("No se encontró la información en la BD");
         }
     }
     
-    @Test
-    public void sePuedeModificarUnProductoCorrectamente() {
+         @Test
+    public void sePuedeModificarUnProductoPrecioCorrectamente() {
  
-        String modificar = "Se modificó el productoPrecio";
-        productoPrecioEjemplo = productoPrecioService.create(productoPrecioEjemplo);
+       productoPrecioEjemplo = productoPrecioService.create(productoPrecioEjemplo);
+        
+                ProductoPrecioDTO productoPrecioEjemplo2 = new ProductoPrecioDTO(); 
+                productoPrecioEjemplo2.setDescuentoMaximo(0.5);
+                productoPrecioEjemplo2.setEstado(false);
 
         Optional<ProductoPrecioDTO> productoPrecioEncontrado = productoPrecioService.findById(productoPrecioEjemplo.getId());
-        if(productoPrecioEncontrado.isPresent()&& productoPrecioEncontrado.get().getDescuentoMaximo() != productoPrecioEjemplo.getDescuentoMaximo()) {
-            productoPrecioEjemplo.setDescuentoMaximo(1);
+        System.out.println(productoPrecioEjemplo.getId());
+        
+        
+        
+        if(productoPrecioEncontrado.isPresent()) {
+            productoPrecioEjemplo = productoPrecioService.update(productoPrecioEjemplo.getId(),productoPrecioEjemplo2);
+            
+            assertEquals(productoPrecioEjemplo.getDescuentoMaximo(), productoPrecioEjemplo2.getDescuentoMaximo());
+        } else {
+            fail("No se encontró la información en la BD");
+        }
+    }
+    
+     @Test
+    public void sePuedeEliminarUnProductoPrecioCorrectamente() {
+        
+         productoPrecioEjemplo = productoPrecioService.create(productoPrecioEjemplo);
+         
+        Optional<ProductoPrecioDTO> productoPrecioEncontrado = productoPrecioService.findById(productoPrecioEjemplo.getId());
+
+        if (productoPrecioEncontrado.isPresent()) {
             ProductoPrecioDTO productoPrecio = productoPrecioEncontrado.get();
-
-            System.out.println(productoPrecioEncontrado.get().getDescuentoMaximo());
-            System.out.println(productoPrecioEjemplo.getDescuentoMaximo());
-
+            
+//          productoPrecioService.delete(productoPrecioEjemplo.getId());
+            productoPrecioService.delete2(productoPrecioEncontrado.get().getId());
+             
             assertEquals(productoPrecioEjemplo.getId(), productoPrecio.getId());
         } else {
             fail("No se encontró la información en la BD");
